@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { FormType } from '@/types';
 import { Input } from './ui/input';
 import { createAccount } from '@/lib/actions/user.actions';
+import OTPModal from './OTPModal';
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -134,6 +135,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </form>
       </Form>
       {/* OTP Verification */}
+
+      {accountId && (
+        <OTPModal email={form.getValues('email')} accountId={accountId} />
+      )}
     </>
   );
 };
