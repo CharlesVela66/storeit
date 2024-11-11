@@ -16,3 +16,7 @@ export const authFormSchema = (formType: FormType) => {
     email: z.string().email(),
   });
 };
+
+export const parseStringify = (value: unknown) => {
+  return JSON.parse(JSON.stringify(value));
+};
