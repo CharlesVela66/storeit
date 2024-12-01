@@ -12,15 +12,15 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Separator } from './ui/separator';
-import { navItems } from '@/constants';
+import { avatarImage, navItems } from '@/constants';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import FileUploader from './FileUploader';
 import { signOutUser } from '@/lib/actions/user.actions';
 
-const MobileNavigation = ({ user }: { user: User }) => {
-  const { ownerId, accountId, fullName, avatar, email } = user;
+const MobileNavigation = ({ user, userId }: { user: User; userId: string }) => {
+  const { accountId, fullName, email } = user;
 
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -47,7 +47,7 @@ const MobileNavigation = ({ user }: { user: User }) => {
             <SheetTitle>
               <div className="header-user">
                 <Image
-                  src={avatar}
+                  src={avatarImage}
                   alt="avatar"
                   width={44}
                   height={44}
@@ -88,7 +88,7 @@ const MobileNavigation = ({ user }: { user: User }) => {
             </nav>
             <Separator className="mb-4 bg-light-200/20" />
             <div className="flex flex-col justify-between gap-5 pb-5">
-              <FileUploader />
+              <FileUploader ownerId={userId} accountId={accountId} />
               <Button
                 type="submit"
                 className="mobile-sign-out-button"

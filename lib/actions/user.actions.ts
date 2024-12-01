@@ -5,7 +5,6 @@ import { createAdminClient, createSessionClient } from '../appwrite';
 import { appwriteConfig } from '../appwrite/config';
 import { parseStringify } from '../utils';
 import { cookies } from 'next/headers';
-import { avatarImage } from '@/constants';
 import { redirect } from 'next/navigation';
 
 const getUserByEmail = async (email: string) => {
@@ -109,7 +108,6 @@ export const getCurrentUser = async () => {
 export const signOutUser = async () => {
   const { account } = await createAdminClient();
   try {
-    // Delete the current session
     await account.deleteSession('current');
     (await cookies()).delete('appwrite-session');
   } catch (error) {

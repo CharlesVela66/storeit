@@ -20,3 +20,10 @@ export type Files = {
   size: number;
   users: string[];
 };
+
+export type UploadFileProps = {
+  file: File;
+  ownerId: string;
+  accountId: string;
+  path: string;
+};
