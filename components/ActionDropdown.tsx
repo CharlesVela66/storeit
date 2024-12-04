@@ -12,7 +12,6 @@ import { useState } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -26,8 +25,12 @@ import { constructDownloadUrl } from '@/lib/utils';
 import Link from 'next/link';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { usePathname } from 'next/navigation';
+import { renameFile } from '@/lib/actions/file.actions';
 
 const ActionDropdown = ({ file }: { file: Models.Document }) => {
+  const path = usePathname();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [name, setName] = useState(file.name);
@@ -42,7 +45,24 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
     setName(file.name);
   };
 
-  const handleAction = async () => {};
+  const handleAction = async () => {
+    if (!action) return;
+    setIsLoading(true);
+    let success = false;
+
+    const actions = {
+      rename: () =>
+        renameFile({ fileId: file.$id, name, extension: file.extension, path }),
+      share: () => {},
+      delete: () => {},
+    };
+
+    success = await actions[action.value as keyof typeof actions]();
+
+    if (success) closeAllModals();
+
+    setIsLoading(false);
+  };
 
   const renderDialogContent = () => {
     if (!action) return null;
