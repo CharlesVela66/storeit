@@ -63,7 +63,12 @@ const MobileNavigation = ({ user, userId }: { user: User; userId: string }) => {
             <nav className="mobile-nav">
               <ul className="flex flex-1 flex-col gap-6">
                 {navItems.map((item) => (
-                  <Link href={item.url} className="lg:w-full" key={item.name}>
+                  <Link
+                    href={item.url}
+                    className="lg:w-full"
+                    key={item.name}
+                    onClick={() => setOpen(false)}
+                  >
                     <li
                       className={cn(
                         'mobile-nav-item',
