@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import Image from 'next/image';
 import { convertFileSize, getUsageSummary } from '@/lib/utils';
+import ActionDropdown from '@/components/ActionDropdown';
 
 export default async function Home() {
   const [files, totalSpace] = await Promise.all([
@@ -71,6 +72,7 @@ export default async function Home() {
                   className="recent-file-date"
                 />
               </div>
+              <ActionDropdown file={file} />
             </li>
           ))}
         </ul>
